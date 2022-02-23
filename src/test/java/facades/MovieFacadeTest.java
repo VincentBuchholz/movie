@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.MovieDTO;
 import entities.Movie;
 import utils.EMF_Creator;
 
@@ -42,11 +43,7 @@ public class MovieFacadeTest {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
             em.persist(new Movie(2015,"Viktors hjemmevideo",new String[]{"Viktor","Mor"}));
-            em.getTransaction().commit();
-            em.getTransaction().begin();
             em.persist(new Movie(2017,"Vincents hjemmevideo",new String[]{"Vincent","Far"}));
-            em.getTransaction().commit();
-            em.getTransaction().begin();
             em.persist(new Movie(2021,"Help im stuck",new String[]{"Philippe","Stepmom"}));
             em.getTransaction().commit();
         } finally {
@@ -66,7 +63,9 @@ public class MovieFacadeTest {
 
     @Test
     void getMovieByIdTest(){
-        assertEquals("Viktors hjemmevideo",facade.getById(1).getTitle());
+
+        MovieDTO movie = facade.getAll().get(1);
+        assertEquals(movie,facade.getById(movie.getId()));
     }
     
 
