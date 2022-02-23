@@ -67,6 +67,11 @@ public class MovieFacadeTest {
         MovieDTO movie = facade.getAll().get(1);
         assertEquals(movie,facade.getById(movie.getId()));
     }
+
+    @Test
+    void getMovieByTitleTest(){
+        assertEquals("Viktors hjemmevideo",facade.getByTitle("Viktors hjemmevideo").getTitle());
+    }
     
 
 }

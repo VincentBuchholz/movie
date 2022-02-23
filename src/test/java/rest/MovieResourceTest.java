@@ -98,6 +98,18 @@ public class MovieResourceTest {
 
     }
 
+    @Test
+    public void getByTitleTest() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/movie/title/Viktors hjemmevideo").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("title", equalTo("Viktors hjemmevideo"));
+
+
+    }
+
 //    @Test
 //    public void testCount() throws Exception {
 //        given()

@@ -45,5 +45,13 @@ public class MovieResource {
         return Response.ok().entity(GSON.toJson(FACADE.getById(id))).build();
     }
 
+    @GET
+    @Path("title/{title}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getByTitle(@PathParam("title")String title) {
+        return Response.ok().entity(GSON.toJson(FACADE.getByTitle(title))).build();
+    }
+
+
 
 }

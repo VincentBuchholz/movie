@@ -67,6 +67,14 @@ public class MovieFacade {
         List<Movie> movieList = query.getResultList();
         return MovieDTO.getDtos(movieList);
     }
+
+    public MovieDTO getByTitle(String title){
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<MovieDTO> tq = em.createQuery("SELECT new dtos.MovieDTO(m) from Movie m where m.title=:title",MovieDTO.class);
+        tq.setParameter("title",title);
+        tq.setMaxResults(1);
+        return tq.getSingleResult();
+    }
     
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
