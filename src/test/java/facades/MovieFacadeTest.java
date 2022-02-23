@@ -42,9 +42,12 @@ public class MovieFacadeTest {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
             em.persist(new Movie(2015,"Viktors hjemmevideo",new String[]{"Viktor","Mor"}));
+            em.getTransaction().commit();
+            em.getTransaction().begin();
             em.persist(new Movie(2017,"Vincents hjemmevideo",new String[]{"Vincent","Far"}));
+            em.getTransaction().commit();
+            em.getTransaction().begin();
             em.persist(new Movie(2021,"Help im stuck",new String[]{"Philippe","Stepmom"}));
-
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -59,6 +62,11 @@ public class MovieFacadeTest {
     @Test
     public void GetAllMoviesTest() throws Exception {
         assertEquals(3,facade.getAll().size());
+    }
+
+    @Test
+    void getMovieByIdTest(){
+        assertEquals("Viktors hjemmevideo",facade.getById(1).getTitle());
     }
     
 

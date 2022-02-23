@@ -67,9 +67,12 @@ public class MovieResourceTest {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
             em.persist(new Movie(2015,"Viktors hjemmevideo",new String[]{"Viktor","Mor"}));
+            em.getTransaction().commit();
+            em.getTransaction().begin();
             em.persist(new Movie(2017,"Vincents hjemmevideo",new String[]{"Vincent","Far"}));
+            em.getTransaction().commit();
+            em.getTransaction().begin();
             em.persist(new Movie(2021,"Help im stuck",new String[]{"Philippe","Stepmom"}));
-
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -82,16 +85,18 @@ public class MovieResourceTest {
         given().when().get("/movie/all").then().statusCode(200);
     }
 
-//    //This test assumes the database contains two rows
-//    @Test
-//    public void testDummyMsg() throws Exception {
-//        given()
-//                .contentType("application/json")
-//                .get("/xxx/").then()
-//                .assertThat()
-//                .statusCode(HttpStatus.OK_200.getStatusCode())
-//                .body("msg", equalTo("Hello World"));
-//    }
+    //This test assumes the database contains two rows
+    @Test
+    public void getByIdTest() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/movie/id/1").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("title", equalTo("Viktors hjemmevideo"));
+
+
+    }
 
 //    @Test
 //    public void testCount() throws Exception {
